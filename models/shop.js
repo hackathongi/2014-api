@@ -5,7 +5,8 @@
 module.exports = function(sequelize, DataTypes) {
 	
 	var Shop = sequelize.define('Shop', {
-		username : DataTypes.STRING
+		username 	: DataTypes.STRING,
+		mandrill_key	: DataTypes.STRING
 	}, {
 		classMethods : {	
 			associate : function(models) {
