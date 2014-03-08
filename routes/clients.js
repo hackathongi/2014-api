@@ -30,6 +30,12 @@ module.exports = function(db) {
 					 res.send(500, { error: 'something blew up' });
 				 }
 			})
+		},
+		get : function(req,res) {
+			db.Client.find(req.body.id).success(function(client){
+				res.setHeader('Content-Type','application-json');
+				res.end(JSON.stringify(client));
+			});
 		}
 	}
 
