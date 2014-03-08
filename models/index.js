@@ -66,7 +66,7 @@ module.exports = function(app) {
 			app.get('/opinions', opinions.list)
 			app.post('/opinions',opinions.add);
 			
-			app.get('/orders/pending',orders.pending)
+			// app.get('/orders/pending',orders.pending)
 			app.get('/orders/:id', orders.get)
 			app.post('/orders', orders.add)
 			
