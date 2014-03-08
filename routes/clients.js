@@ -32,8 +32,8 @@ module.exports = function(db) {
 			})
 		},
 		get : function(req,res) {
-			db.Client.find(req.body.id).success(function(client){
-				res.setHeader('Content-Type','application-json');
+			db.Client.find(req.params.id).success(function(client){
+				res.setHeader('Content-Type','text-json');
 				res.end(JSON.stringify(client));
 			});
 		}
