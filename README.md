@@ -1,19 +1,7 @@
-
 # hackathongi-api
 
+## Veure wiki: https://github.com/hackathongi/api/wiki
 
-
-## Usage
-
-Root: http://api.eshopinion.cat
-
-### Orders
-
-
-### Opinion
-/opinion
-
-## Developing
 
 
 
