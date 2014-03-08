@@ -3,13 +3,6 @@ var express = require('express')
   , path    = require('path')
  
 var app = express()
-
-var db = require('./models')(app)
-
-var routes  = require('./routes')
-
-
-// all environments
 app.set('port', process.env.PORT || 3000)
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
@@ -25,9 +18,5 @@ app.use(express.static(path.join(__dirname, 'public')))
 if ('development' === app.get('env')) {
   app.use(express.errorHandler())
 }
- 
-app.get('/', routes.index)
 
-//app.post('/users/create', user.create)
-//app.post('/users/:user_id/tasks/create', task.create)
-//app.get('/users/:user_id/tasks/:task_id/destroy', task.destroy)
+var db = require('./models')(app)
