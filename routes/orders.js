@@ -9,33 +9,25 @@ module.exports = function(db) {
 	
 	return {
 		add : function(req, res) {
-			db.Client.find(req.params.user_id)
-				.then(function(cl) {
+			db.Client.find({where: {id: req.params.client_id}})
+				.success(function(client) {
 					var order = db.Order.build({
 						description: req.body.description,
 						token: req.body.token});
-					return order.setClient(cl)
-						.then(function(or) {
-							return cl.addOrder(or)
-						.then(function() {
-							res.send(200);
-						});});},
-						function (err) {
-							 res.send(500, { error: 'something blew up' });
-						}
-						
-						})		
+					order.setClient(client);
+					client.addOrder(order);
+					res.send(200);
 				})
+				.error(function(err) {
+					res.send(500, {error: err.toString()})
+				})
+		},
+		get: function(req, res) {
+			db.Order.find({where: {id : req.params.id,  include: [ Client, Shop ]}})
+				.success(function(order) {
+					res.setHeader('Content-Type', 'application/json');
+					res.end(JSON.stringify(order));
 				});
-			
-			shop.save().then(function(err) {
-				 if (!err) {
-					 res.send(200);
-				 } else {
-					 res.send(500, { error: 'something blew up' });
-				 }
-			});
 		}
 	}
-
 }
