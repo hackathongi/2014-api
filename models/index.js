@@ -70,6 +70,7 @@ module.exports = function(app) {
 			app.get('/orders/:id', orders.get)
 			app.post('/orders', orders.add)
 			
+			app.post('/shops/crawled/:id', shops.send_mail);
 			app.get('/shops/crawled',  shops.crawled)
 			app.get('/shops',  shops.get)
 			app.post('/shops', shops.add)
