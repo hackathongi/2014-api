@@ -12,8 +12,8 @@ module.exports = function(db) {
 				res.setHeader('Content-Type', 'application/json');
 				res.end(JSON.stringify(opinions));
 			})
-
 		},
+
 		// Revisar que els camps del form es diguin igual que els de la funció
 		add : function(req,res) {
 			var opinion = db.Opinion.build({
