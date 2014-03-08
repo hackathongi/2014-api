@@ -11,7 +11,10 @@ module.exports = function(db) {
 
 	return {
 		add : function(req, res) {
-			var shop = db.Shop.build({username: req.body.username})
+			var shop = db.Shop.build({
+				username	: req.body.username,
+				mandrill_key	: req.body.mandrill_key 
+			})
 			shop.save().complete(function(err) {
 				 if (!err) {
 					 res.send(200);
