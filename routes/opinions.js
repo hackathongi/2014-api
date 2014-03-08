@@ -29,12 +29,12 @@ module.exports = function(db) {
 
 		// Revisar que els camps del form es diguin igual que els de la funció
 		add : function(req,res) {
-			db.Order.find({where : { id : req.body.order_id}})
+			db.Order.find({where : { id : req.params.order_id}})
 				.success(function(order) {
 					var opinion = db.Opinion.build({
-						description	: req.body.description,
-						rating		: req.body.rating,
-						date		: req.body.date,				
+						description	: req.params.description,
+						rating		: req.params.rating,
+						date		: req.params.date,				
 					});
 					opinion.save()
 						.success(function() {
