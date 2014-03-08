@@ -12,6 +12,7 @@
     "mysql": "*",
     "lodash": "*",
     "q": "*",
-    "cors": "*"
+    "cors": "*",
+    "node-uuid": "*"
   }
 }
