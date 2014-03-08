@@ -22,6 +22,12 @@ module.exports = function(db) {
 					 res.send(500, { error: err.message });
 				 }
 			})
+		},
+		get : function(req,res) {
+			db.Shop.find(req.body.id).success(function(shop){
+				res.setHeader('Content-Type','application-json');
+				res.end(JSON.stringify(shop));
+			});
 		}
 	}
 
