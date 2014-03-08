@@ -6,10 +6,11 @@ module.exports = function(db) {
 
 	return {
 		list : function(req, res) {
-			db.Order.findAll({
+			db.Order.findAndCountAll({
 						include : [ db.Opinion],
 						where : { token : req.query.token}, 
-						limit: 10, 
+						limit: req.query.limit,
+						offset: req.query.offset,
 						order : 'createdAt DESC'})
 				.success(function(orders) {
 					var results = [];
@@ -18,6 +19,7 @@ module.exports = function(db) {
 						if (op) {
 							results.push(op);
 						}
+						results.num_pages = Math.ceil(orders.count / req.query.limit);
 						res.setHeader('Content-Type', 'application/json');
 						res.end(JSON.stringify(results));
 					}		
