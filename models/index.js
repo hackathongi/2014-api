@@ -52,11 +52,16 @@ module.exports = function(app) {
 				}
 			});
 			
-			
+			// Define variables			
 			var opinions = require('../routes/opinions')(db)
-			app.get('/opinions', opinions.list)
 			var shops = require('../routes/shops')(db)
+
+			// "Get" functions
+			app.get('/opinions', opinions.list)
+
+			// "Post" functions
 			app.post('/shops', shops.add)
+			app.post('/opinions',opinions.add);
 
 			
 			sequelize
