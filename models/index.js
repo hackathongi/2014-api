@@ -76,7 +76,7 @@ module.exports = function(app) {
 			app.post('/clients', clients.add)
 			app.get('/clients/:id', clients.get)
 			
-			app.post('/crawler', crawler.add)
+			// app.post('/crawler', crawler.add)
 			
 			sequelize
 			  .sync({ force: force })
