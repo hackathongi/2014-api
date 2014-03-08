@@ -5,24 +5,17 @@
 module.exports = function(db) {
 
 	return {
-	//	list : function(req, res) {
-	//		db.Opinion.findAll({
-	//		// include : [ db.Task ]
-	//		}).success(function(opinions) {
-	//			res.setHeader('Content-Type', 'application/json');
-	//			res.end(JSON.stringify(opinions));
-	//		})
-	//	},
-	//
-		list : function(req,res) {
-			db.Opinion.find({where: {id : req.params.id}})
-				.success(function(opinions){
-					res.setHeader('Content-Type', 'application-json');
-					res.end(JSON.stringify(opinions));
-			});
+		get : function(req, res) {
+			db.Opinion.findAll({
+			// include : [ db.Task ]
+			}).success(function(opinions) {
+				res.setHeader('Content-Type', 'application/json');
+				res.end(JSON.stringify(opinions));
+			})
 		},
+
 		// Revisar que els camps del form es diguin igual que els de la funció
-		add : function(req,res) {
+		post : function(req,res) {
 			var opinion = db.Opinion.build({
 					description	: descripcio,
 					rating		: valoracio,
