@@ -19,12 +19,14 @@ module.exports = function(app) {
 			username : "apidb",
 			password : "apidb"
 		}
+		var force = true;
 	} else {
 		var db_credentials = {
 			dbname : "apidb",
 			username : "apidb",
 			password : "apidb"
 		}
+		var force = false;
 	}
 
 	var sequelize = require('sequelize'), sequelize = new Sequelize(
@@ -72,7 +74,7 @@ module.exports = function(app) {
 			app.post('/clients', clients.add)
 			
 			sequelize
-			  .sync({ force: true })
+			  .sync({ force: force })
 			  .complete(function(err) {
 			    if (err) {
 			      throw err
