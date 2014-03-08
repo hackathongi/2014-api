@@ -1,12 +1,17 @@
 
-
 # hackathongi-api
 
 
 
 ## Usage
 
+Root: http://api.eshopinion.cat
 
+### Orders
+
+
+### Opinion
+/opinion
 
 ## Developing
 
