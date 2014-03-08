@@ -11,6 +11,7 @@
     "sequelize": "*",
     "mysql": "*",
     "lodash": "*",
-    "q": "*"
+    "q": "*",
+    "cors": "*"
   }
 }
