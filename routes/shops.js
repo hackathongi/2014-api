@@ -13,7 +13,7 @@ module.exports = function(db) {
 		add : function(req, res) {
 			var shop = db.Shop.build({
 				username	: req.body.username,
-				mandrill_key	: req.body.mandrill_key 
+				token : req.body.token,
 			})
 			shop.save().complete(function(err) {
 				 if (!err) {

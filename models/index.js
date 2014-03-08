@@ -9,8 +9,8 @@ module.exports = function(app) {
 	var Sequelize = require('sequelize');
 	var lodash = require('lodash');
 	var http = require('http')
+	var console = require('console');
 
-	var sequelize = new Sequelize('sequelize_test', 'root', null);
 	var db = {};
 
 	if ('development' === app.get('env')) {
@@ -32,8 +32,12 @@ module.exports = function(app) {
 			db_credentials.password, {
 				dialect : "mysql",
 				port : 3306,
+				logging : console.log
 			});
 
+	db.Sequelize = Sequelize;
+	db.sequelize = sequelize;
+	
 	sequelize.authenticate().complete(function(err) {
 		if (!!err) {
 			console.log('Unable to connect to the database:', err);
@@ -80,8 +84,5 @@ module.exports = function(app) {
 	});
 
 
-	return lodash.extend({
-		sequelize : sequelize,
-		Sequelize : Sequelize
-	}, db);
+	return db;
 }

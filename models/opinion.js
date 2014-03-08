@@ -7,7 +7,6 @@ module.exports = function(sequelize, DataTypes) {
 		description	: DataTypes.STRING,
 		rating		: DataTypes.INTEGER,
 		date		: DataTypes.DATE,
-		order_id	: DataTypes.TINYINT,
 		lang		: DataTypes.STRING(3),
 		
 	}, {

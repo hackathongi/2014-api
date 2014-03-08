@@ -9,18 +9,39 @@ module.exports = function(db) {
 	
 	return {
 		add : function(req, res) {
-			db.Client.find({where: {id: req.params.client_id}})
-				.success(function(client) {
-					var order = db.Order.build({
-						description: req.body.description,
-						token: req.body.token});
-					order.setClient(client);
-					client.addOrder(order);
-					res.send(200);
+			var chainer = new db.Sequelize.Utils.QueryChainer;
+			db.Client.findOrCreate({email: req.body.email})
+				.success(function(client, created) {
+					db.Shop.find({where : {token : req.body.token }})
+						.success(function(shop) {
+							var order = db.Order.build({
+								description: req.body.description,
+								token: req.body.token});
+
+							order.save()
+								.success(function() {
+									order.setClient(client);
+									order.setShop(shop);
+									client.addOrder(order);
+									shop.addOrder(order);
+									if (created) {
+										client.addShop(shop);
+										// shop.addClient(shop);
+									}
+									res.send(200);
+								})
+								.error(function(err) {
+									res.send(500, {error : err.toString()})
+								});
+						})
+						.error(function(err) {
+							res.send(500, {error : err.toString()})	
+						});
 				})
 				.error(function(err) {
-					res.send(500, {error: err.toString()})
-				})
+					res.send(500, {error : err.toString()})	
+				});
+			
 		},
 		get: function(req, res) {
 			db.Order.find({where: {id : req.params.id,  include: [ Client, Shop ]}})

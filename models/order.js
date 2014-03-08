@@ -11,6 +11,8 @@ module.exports = function(sequelize, DataTypes) {
 		classMethods : {
 			associate : function(models) {
 				Order.hasOne(models.Opinion)
+				Order.hasOne(models.Client)
+				Order.belongsTo(models.Shop)
 			}
 		}
 	});
