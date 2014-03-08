@@ -41,7 +41,8 @@ module.exports = function(db) {
 					opinion.save()
 						.success(function() {
 							opinion.setOrder(order);
-							res.send(200)
+							res.setHeader('Content-Type', 'application/json');
+							res.send(200,{result: 'OK'})
 						})
 						.error(function(err) {
 							res.send(500, { error : err.message });					
