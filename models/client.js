@@ -4,7 +4,17 @@
 
 module.exports = function(sequelize, DataTypes) {	
 	var Client = sequelize.define('Client', {
-		id: DataTypes.BIGINT,
+		name : DataTypes.STRING(255),
+		surname : DataTypes.STRING(255),
+		address : DataTypes.STRING(512),
+		city : DataTypes.STRING(255),
+		post_code : DataTypes.STRING(10),
+		country : DataTypes.STRING(255),
+		born_date : DataTypes.DATE,
+		sex : DataTypes.STRING(1),
+		email : DataTypes.STRING(255),
+		phone : DataTypes.STRING(45),
+		clientcol : DataTypes.STRING(45)
 	}, {
 		classMethods : {
 			associate : function(models) {

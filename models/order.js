@@ -4,8 +4,9 @@
 
 module.exports = function(sequelize, DataTypes) {	
 	var Order = sequelize.define('Order', {
-		id: DataTypes.BIGINT,
-		username : DataTypes.STRING
+		description : DataTypes.STRING(1024),
+		date : DataTypes.DATE,
+		token : DataTypes.STRING(45),
 	}, {
 		classMethods : {
 			associate : function(models) {

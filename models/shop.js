@@ -5,7 +5,17 @@
 module.exports = function(sequelize, DataTypes) {
 	
 	var Shop = sequelize.define('Shop', {
-		username : DataTypes.STRING
+		name : DataTypes.STRING(255),
+		adress : DataTypes.STRING(512),
+		url : DataTypes.STRING(512),
+		phone : DataTypes.STRING(45),
+		email : DataTypes.STRING(255),
+		logo_url : DataTypes.STRING(1024),
+		username : DataTypes.STRING(45),
+		password : DataTypes.STRING(45),
+		token : DataTypes.STRING(45),
+		is_client : DataTypes.BOOLEAN,
+		url_scrap : DataTypes.BOOLEAN
 	}, {
 		classMethods : {	
 			associate : function(models) {
