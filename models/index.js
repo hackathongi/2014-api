@@ -56,8 +56,8 @@ module.exports = function(app) {
 			var shops = require('../routes/shops')(db)
 			var orders = require('../routes/orders')(db)
 
-			app.get('/opinions', opinions.list)
-			app.post('/opinions',opinions.add);
+			app.get('/opinions', opinions.get)
+			app.post('/opinions',opinions.post);
 			
 			app.get('/orders/:id', orders.get)
 			app.post('/orders', orders.add)
