@@ -28,6 +28,22 @@ module.exports = function(db) {
 				res.setHeader('Content-Type','application-json');
 				res.end(JSON.stringify(shop));
 			});
+		},
+		crawled : function(req,res) {
+			db.Shop.find({where: {is_client : null}}).success(function(shop){
+				res.setHeader('Content-Type','application-json');
+				res.end(JSON.stringify(shop));
+			});
+		},
+		send_mail : function(req,res) {
+			db.Shop.update(
+				{ crawled_mail : Math.round(new Date().getTime()/1000) },
+				{ id : req.params.id }
+			).success(function(){
+				res.send(200, {"OK" : "OK"});
+			}).error(function(){
+				res.send(500, {error: "Merda!"});
+			});
 		}
 	}
 
