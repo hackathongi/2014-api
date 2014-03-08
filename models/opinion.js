@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
 		description	: DataTypes.STRING,
 		rating		: DataTypes.INTEGER,
 		date		: DataTypes.DATE,
-		lang		: DataTypes.STRING(3),
+		lang		: DataTypes.STRING(3)
 		
 	}, {
 		classMethods : {
