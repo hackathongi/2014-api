@@ -63,6 +63,8 @@ module.exports = function(app) {
 			app.post('/orders', orders.add)
 			
 			app.post('/shops', shops.add)
+
+			app.post('/clients', clients.add)
 			
 			sequelize
 			  .sync({ force: true })
