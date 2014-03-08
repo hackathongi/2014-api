@@ -51,13 +51,14 @@ module.exports = function(app) {
 					db[modelName].associate(db);
 				}
 			});
-			
-			
+						
 			var opinions = require('../routes/opinions')(db)
 			app.get('/opinions', opinions.list)
 			var shops = require('../routes/shops')(db)
 			app.post('/shops', shops.add)
-
+			var orders = require('../routes/orders')(db)
+			app.get('/orders/:id', orders.get)
+			app.post('/orders', orders.add)
 			
 			sequelize
 			  .sync({ force: true })
