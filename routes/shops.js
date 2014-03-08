@@ -28,6 +28,12 @@ module.exports = function(db) {
 				res.setHeader('Content-Type','application-json');
 				res.end(JSON.stringify(shop));
 			});
+		},
+		crawled : function(req,res) {
+			db.Shop.find({where: {is_client : false}}).success(function(shop){
+				res.setHeader('Content-Type','application-json');
+				res.end(JSON.stringify(shop));
+			});
 		}
 	}
 
