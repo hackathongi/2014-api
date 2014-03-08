@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 		password : DataTypes.STRING(45),
 		token : DataTypes.STRING(45),
 		is_client : DataTypes.BOOLEAN,
-		url_scrap : DataTypes.BOOLEAN
+		url_scrap : DataTypes.STRING(1024)
 	}, {
 		classMethods : {	
 			associate : function(models) {
