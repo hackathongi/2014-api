@@ -14,6 +14,21 @@ module.exports = function(db) {
 			})
 
 		}
+		// Revisar que els camps del form es diguin igual que els de la funció
+		add : function(req,res) {
+			var opinion = db.Opinion.build({
+					description	: descripcio,
+					rating		: valoracio,
+					date		: data,
+					order_id	: order_id
+				
+			})
+			opinion.save().complete(function(err) {
+				if(!err) res.send(200)
+				else res.send(500, { error : 'the opinion could not be added' });
+			})
+					
+		}
 	}
 
 }
