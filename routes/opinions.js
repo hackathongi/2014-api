@@ -12,15 +12,15 @@ module.exports = function(db) {
 				res.setHeader('Content-Type', 'application/json');
 				res.end(JSON.stringify(opinions));
 			})
-
 		},
+
 		// Revisar que els camps del form es diguin igual que els de la funció
 		add : function(req,res) {
 			var opinion = db.Opinion.build({
-					description	: descripcio,
-					rating		: valoracio,
-					date		: data,
-					order_id	: order_id
+					description	: req.body.description,
+					rating		: req.body.rating,
+					date		: req.body.date,
+					order_id	: req.body.order_id
 				
 			})
 			opinion.save().complete(function(err) {
