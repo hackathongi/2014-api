@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
 		sex : DataTypes.STRING(1),
 		email : DataTypes.STRING(255),
 		phone : DataTypes.STRING(45),
+		html_signature : DataTypes.STRING(255),
 		clientcol : DataTypes.STRING(45)   // WTF?
 	}, {
 		classMethods : {
