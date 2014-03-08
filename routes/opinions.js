@@ -17,10 +17,10 @@ module.exports = function(db) {
 		// Revisar que els camps del form es diguin igual que els de la funció
 		add : function(req,res) {
 			var opinion = db.Opinion.build({
-					description	: descripcio,
-					rating		: valoracio,
-					date		: data,
-					order_id	: order_id
+					description	: req.body.descripcio,
+					rating		: req.body.valoracio,
+					date		: req.body.data,
+					order_id	: req.body.order_id
 				
 			})
 			opinion.save().complete(function(err) {

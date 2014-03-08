@@ -2,3 +2,5 @@ node_modules
 .settings
 .project
 sql/*.bak
+/RubyApplication6/nbproject/private/
+/nbproject/private/
