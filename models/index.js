@@ -64,12 +64,14 @@ module.exports = function(app) {
 			app.get('/opinions', opinions.list)
 			app.post('/opinions',opinions.add);
 			
+			app.get('/orders/pending',orders.pending)
 			app.get('/orders/:id', orders.get)
 			app.post('/orders', orders.add)
 			
 			app.post('/shops', shops.add)
 
 			app.post('/clients', clients.add)
+			app.get('/clients/:id', clients.get)
 			
 			sequelize
 			  .sync({ force: true })
