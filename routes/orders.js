@@ -10,13 +10,11 @@ module.exports = function(db) {
 	return {
 		add : function(req, res) {
 			var chainer = new db.Sequelize.Utils.QueryChainer;
-			db.Client.findOrCreate({email: req.body.email})
+			db.Client.findOrCreate({email: req.body.email}, req.body.client)
 				.success(function(client, created) {
 					db.Shop.find({where : {token : req.body.token }})
 						.success(function(shop) {
-							var order = db.Order.build({
-								description: req.body.description,
-								token: req.body.token});
+							var order = db.Order.build(req.body.order);
 
 							order.save()
 								.success(function() {
