@@ -4,3 +4,5 @@ node_modules
 sql/*.bak
 /RubyApplication6/nbproject/private/
 /nbproject/
+.idea
+*.iml

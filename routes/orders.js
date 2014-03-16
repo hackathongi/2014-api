@@ -3,50 +3,42 @@
  */
 
 
-module.exports = function(db) {
+module.exports = function (db) {
 
-	var Q = require('q');
-	
-	return {
-		add : function(req, res) {
-			var chainer = new db.Sequelize.Utils.QueryChainer;
-			db.Client.findOrCreate({email: req.body.email}, req.body.client)
-				.success(function(client, created) {
-					db.Shop.find({where : {token : req.body.token }})
-						.success(function(shop) {
-							var order = db.Order.build(req.body.order);
+    var async = require('async');
+    var util = require('../util');
+    var dao = require('../dao')(db);
+    var W = require('when');
 
-							order.save()
-								.success(function() {
-									order.setClient(client);
-									order.setShop(shop);
-									client.addOrder(order);
-									shop.addOrder(order);
-									if (created) {
-										client.addShop(shop);
-										// shop.addClient(shop);
-									}
-									res.send(200);
-								})
-								.error(function(err) {
-									res.send(500, {error : err.toString()})
-								});
-						})
-						.error(function(err) {
-							res.send(500, {error : err.toString()})	
-						});
-				})
-				.error(function(err) {
-					res.send(500, {error : err.toString()})	
-				});
-			
-		},
-		get: function(req, res) {
-			db.Order.find({where: {id : req.params.id,  include: [ Client, Shop ]}})
-				.success(function(order) {
-					res.setHeader('Content-Type', 'application/json');
-					res.end(JSON.stringify(order));
-				});
-		}
-	}
+    return {
+        create: function (req, res) {
+            if (!req.body.token) res.send(400, {error: "No token parameter in request"})
+            if (!req.body.order) res.send(400, {error: "No order parameter in request"})
+            if (!req.body.client.email) res.send(400, {error: "No client parameter in request"})
+
+            db.sequelize.transaction(function (t) {
+                W.all([dao.Client.getByEmail(req.body.client.email, t),
+                        dao.Shop.getByToken(req.body.token, t)])
+                    .spread(function (client, shop) {
+                        if (!shop) util.reject("No shop exists with token = " + token);
+                        if (client) return W.all([client, shop]);
+                        return W.all([dao.Client.createWithShop(req.body.client, shop, t), shop]);
+                    })
+                    .spread(function (client, shop) {
+                        return dao.Order.create(req.body.order, client, shop, t);
+                    })
+                    .then(util.commit.genFuncLeft(t), util.rollback.genFuncLeft(t))
+                    .then(util.stdSeqSuccess.genFuncLeft(res), util.stdErr500.genFuncLeft(res))
+                    .done();
+            });
+        },
+
+        getById: function (req, res) {
+            if (!req.params.id) util.stdErr500(res, "Missing parameter 'id'");
+            else
+                db.Order.find({where: {id: req.params.id, include: [ Client, Shop ]}})
+                    .success(util.stdSeqSuccess.genFuncLeft(res), util.stdSeqError.genFuncLeft(res))
+                    .done();
+        }
+    }
 }

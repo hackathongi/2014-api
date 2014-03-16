@@ -2,13 +2,13 @@
  * New node file
  */
 
-module.exports = function(sequelize, DataTypes) {	
+module.exports = function(sequelize, DataTypes) {
 	var Opinion = sequelize.define('Opinion', {
 		description	: DataTypes.STRING,
-		rating		: DataTypes.INTEGER,
-		date		: DataTypes.DATE,
+		rating		: { type : DataTypes.INTEGER},
+		date		: { type : DataTypes.DATE, validate : {notNull : true }},
 		lang		: DataTypes.STRING(3)
-		
+
 	}, {
 		classMethods : {
 			associate : function(models) {
@@ -16,6 +16,6 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		}
 	});
-	
+
 	return Opinion;
 };

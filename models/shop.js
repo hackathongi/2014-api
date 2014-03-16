@@ -3,7 +3,7 @@
  */
 
 module.exports = function(sequelize, DataTypes) {
-	
+
 	var Shop = sequelize.define('Shop', {
 		name : DataTypes.STRING(255),
 		adress : DataTypes.STRING(512),
@@ -18,14 +18,13 @@ module.exports = function(sequelize, DataTypes) {
 		url_scrap : DataTypes.STRING(1024),
 		crawled_mail: DataTypes.INTEGER(11)
 	}, {
-		classMethods : {	
+		classMethods : {
 			associate : function(models) {
 				Shop.hasMany(models.Order)
 				Shop.hasMany(models.Client)
 			}
-		
 		}
 	});
-		
+
 	return Shop;
 };

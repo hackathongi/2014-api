@@ -10,28 +10,30 @@
 module.exports = function(db) {
 
 	return {
-		add : function(req, res) {
-			var client = db.Client.build({
-				name		: req.body.name,
-				surname		: req.body.surname,
-				address 	: req.body.address,
-				city		: req.body.city,
-				post_code	: req.body.post_code,
-				country		: req.body.country,
-				born_date	: req.body.born_date,
-				sex		: req.body.sex,
-				email		: req.body.email,
-				phone		: req.body.phone,
-			})
-			client.save().complete(function(err) {
-				 if (!err) {
-					 res.send(200);
-				 } else {
-					 res.send(500, { error: 'something blew up' });
-				 }
-			})
+		create : function(req, res) {
+            if (!req.body.email) {
+                util.stdErr400(res, "Missing 'email' attribute");
+                return;
+            }
+
+            if (req.body.token) {
+                db.sequelize.transaction(function (t) {
+                    dao.Shop.getByToken(req.body.token)
+                        .then(function(shop) {
+                            if (!shop) util.reject("Cannot find Shop with 'token' = " + req.body.token)
+                            else return dao.Client.createWithShop(req.body, shop, t);
+                        })
+                        .then(util.commit.genFuncLeft(t), util.rollback.genFuncLeft(t))
+                        .then(util.stdSeqSuccess.genFuncLeft(res, {}), util.stdErr500.genFuncLeft(res))
+                        .done();
+                });
+            } else {
+                dao.Client.createWithoutShop(req.body, t)
+                    .then(util.stdSeqSuccess.genFuncLeft(res, {}), util.stdErr500.genFuncLeft(res))
+                    .done();
+            }
 		},
-		get : function(req,res) {
+		getById : function(req,res) {
 			db.Client.find(req.params.id).success(function(client){
 				res.setHeader('Content-Type','text-json');
 				res.end(JSON.stringify(client));

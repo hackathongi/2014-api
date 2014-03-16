@@ -11,8 +11,10 @@
     "sequelize": "*",
     "mysql": "*",
     "lodash": "*",
-    "q": "*",
+    "async": "*",
     "cors": "*",
-    "node-uuid": "*"
+    "node-uuid": "*",
+    "q": "*",
+    "when": "*"
   }
 }
