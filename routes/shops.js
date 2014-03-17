@@ -22,7 +22,7 @@ module.exports = function (db) {
                 util.stdErr500("Missing 'email' attribute in body");
                 return;
             }
-            var attibs= {email: email, token: token}
+            var attribs= {email: email, token: token}
 
             dao.Shop.getByEmail(email)
                 .then(function (shop) {
