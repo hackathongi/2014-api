@@ -13,11 +13,13 @@ module.exports = function(db) {
 	
 	return {
 		add : function(req, res) {
-			var shop = db.Shop.build(req.body);
+			var token= uuid.v4()
+			var attrs= {email: req.body.username, token: token}
+			var shop = db.Shop.build(attrs);
 			shop.save().complete(function(err) {
 				 if (!err) {
 					res.setHeader('Content-Type', 'application/json');
-					res.end(JSON.stringify({token: uuid.v4()}));
+					res.end(JSON.stringify({token: token}));
 				 } else {
 					 res.send(500, { error: err.message });
 				 }
