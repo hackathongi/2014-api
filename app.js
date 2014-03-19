@@ -51,7 +51,7 @@ db.initPromise
         //app.post('/shops/crawled/:id', shops.send_mail);
         // app.get('/shops/crawled', shops.crawled)
         app.get('/shops/:id', shops.getById)
-        // app.get('/shops', shops.getByToken)
+        app.get('/shops', shops.getPage)
         app.post('/shops', shops.create)
         app.get('/shops/:id/opinions', opinions.getById)
 
