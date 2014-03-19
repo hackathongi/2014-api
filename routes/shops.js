@@ -24,7 +24,7 @@ module.exports = function (db) {
 
             dao.Shop.getByEmail(req.body.email)
                 .then(function (shop) {
-                    if (shop) throw {message: "Already exist a shop with email = " + req.body.email};
+                    if (shop) util.reject("Already exist a shop with email = " + req.body.email);
                     return dao.Shop.create(req.body);
                 })
                 .then(util.stdSeqSuccess.genFuncLeft(res, {token: req.body.token}),
