@@ -63,7 +63,7 @@ module.exports = function (app) {
             });
 
             sequelize
-                .sync({ force: true })
+                .sync({ force: force })
                 .complete(function (err) {
                     if (err) {
                         df.reject(err)
