@@ -45,6 +45,15 @@ module.exports = function (db) {
                 .then(util.stdSeqSuccess.genFuncLeft(res), util.stdSeqError.genFuncLeft(res))
                 .done();
         },
+        getPage: function (req, res) {
+            var page = req.query.page || 0;
+            var limit = req.query.size || 10;
+            var offset = page * limit;
+            dao.Shop.getPage({ limit: limit, offset: offset})
+                .then(util.stdSeqSuccess.genFuncLeft(res), util.stdSeqError.genFuncLeft(res))
+                .done();
+        },
+
         crawled: function (req, res) {
             db.Shop.find({where: {is_client: null}}).success(function (shop) {
                 res.setHeader('Content-Type', 'application-json');
