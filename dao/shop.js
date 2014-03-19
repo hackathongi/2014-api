@@ -43,6 +43,7 @@ module.exports = function (db) {
     dao.getPage = function (options) {
         var df = W.defer();
         db.Shop.findAll({
+            attributes: ['name', 'url', 'phone', 'email', 'logo_url', 'is_client', 'url_scrap'],
             limit: options.limit,
             offset: options.offset,
             order: 'createdAt DESC'})
