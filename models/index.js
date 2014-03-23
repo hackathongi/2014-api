@@ -13,6 +13,8 @@ module.exports = function (app) {
 
     var db = {};
 
+    console.log("Configuring app for environment: " + app.get('env'));
+
     if ('development' === app.get('env')) {
         var db_credentials = {
             dbname: "apidb",
@@ -41,6 +43,8 @@ module.exports = function (app) {
         }
         var force = false;
     }
+
+    console.log("Connecting to " + db_credentials.dbname);
 
     var sequelize = require('sequelize'), sequelize = new Sequelize(
         db_credentials.dbname, db_credentials.username,
