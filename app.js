@@ -58,7 +58,9 @@ db.initPromise
         app.post('/clients', clients.create)
         app.get('/clients/:id', clients.getById)
 
-        http.createServer(app).listen(app.get('port'), function () {
+        var port = process.env.OPENSHIFT_NODEJS_PORT || app.get('port');
+
+        http.createServer(app).listen(port, function () {
             console.log('Express server listening on port ' + app.get('port'))
         })
 
