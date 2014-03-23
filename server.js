@@ -59,9 +59,10 @@ db.initPromise
         app.get('/clients/:id', clients.getById)
 
         var port = process.env.OPENSHIFT_NODEJS_PORT || app.get('port');
+        var ip = process.env.OPENSHIFT_INTERNAL_IP || "127.0.0.1";
 
-        http.createServer(app).listen(port, function () {
-            console.log('Express server listening on port ' + app.get('port'))
+        http.createServer(app).listen(port, ip, function () {
+            console.log("Express server listening on " + ip + ":" + port);
         })
 
     }, function (err) {
