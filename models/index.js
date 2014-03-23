@@ -10,6 +10,7 @@ module.exports = function (app) {
     var http = require('http')
     var console = require('console');
     var W = require('when');
+    var process = require('process');
 
     var db = {};
 
@@ -17,14 +18,27 @@ module.exports = function (app) {
         var db_credentials = {
             dbname: "apidb",
             username: "apidb",
-            password: "apidb"
+            password: "apidb",
+            host: "127.0.0.1",
+            port: 3306
         }
         var force = true;
-    } else {
+    } else if ('openshift' === app.get('env')) {
+        var db_credentials = {
+            dbname: process.env.OPENSHIFT_APP_NAME,
+            username: process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+            password: process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+            host: process.env.OPENSHIFT_MYSQL_DB_HOST,
+            port: process.env.OPENSHIFT_MYSQL_DB_PORT
+        }
+        var force = false;
+    }  else {
         var db_credentials = {
             dbname: "apidb",
             username: "apidb",
-            password: "apidb"
+            password: "apidb",
+            host: "127.0.0.1",
+            port: 3306
         }
         var force = false;
     }
