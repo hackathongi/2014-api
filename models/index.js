@@ -10,7 +10,6 @@ module.exports = function (app) {
     var http = require('http')
     var console = require('console');
     var W = require('when');
-    var process = require('process');
 
     var db = {};
 
