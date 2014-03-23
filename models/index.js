@@ -49,8 +49,9 @@ module.exports = function (app) {
     var sequelize = require('sequelize'), sequelize = new Sequelize(
         db_credentials.dbname, db_credentials.username,
         db_credentials.password, {
+            host: db_credentials.host,
             dialect: "mysql",
-            port: 3306,
+            port: db_credentials.port,
             logging: console.log
         });
 
