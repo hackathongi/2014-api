@@ -39,23 +39,18 @@ module.exports = function (db) {
         return df.promise;
     }
 
-    /*
-    dao.addOrder = function (client, shop, order, t) {
+
+    dao.getPage = function (options) {
         var df = W.defer();
-        order.setClient(client, util.addTrans(t, {}))
-            .success(function () {
-                order.setShop(shop, util.addTrans(t, {}))
-                    .success(function (o) {
-                        df.resolve(o);
-                    })
-                    .error(df.reject);
-            })
-            .error(function (err) {
-                df.reject(err)
-            });
+        db.Shop.findAll({
+            attributes: ['name', 'url', 'phone', 'email', 'logo_url', 'is_client', 'url_scrap'],
+            limit: options.limit,
+            offset: options.offset,
+            order: 'createdAt DESC'})
+            .success(df.resolve)
+            .error(df.reject);
         return df.promise;
-    }
-    */
+    };
 
     return dao;
 }

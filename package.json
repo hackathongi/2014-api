@@ -1,20 +1,21 @@
 {
-  "name": "hackathongi-api",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "3.2.6",
-    "jade": "*",
-    "sequelize": "*",
-    "mysql": "*",
-    "lodash": "*",
-    "async": "*",
-    "cors": "*",
-    "node-uuid": "*",
-    "q": "*",
-    "when": "*"
-  }
+    "name": "hackathongi-api",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "3.2.6",
+        "jade": "*",
+        "sequelize": "*",
+        "mysql": "*",
+        "lodash": "*",
+        "async": "*",
+        "cors": "*",
+        "node-uuid": "*",
+        "q": "*",
+        "when": "*",
+        "bcrypt": "*"
+}
 }

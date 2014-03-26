@@ -23,7 +23,7 @@ exports.stdSeqError = function (res, err) {
 };
 
 exports.reject = function (reason) {
-    throw {message: reason};
+    throw new Error(reason);
 }
 
 exports.commit = function (t) {

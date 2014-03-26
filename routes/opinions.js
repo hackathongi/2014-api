@@ -11,7 +11,7 @@ module.exports = function(db) {
 		getById : function(req, res) {
             dao.Shop.getById(req.params.id)
 				.then(function(shop) {
-					if (!shop) throw {message: "Cannot find shop with id = " + req.params.id};
+					if (!shop) util.reject("Cannot find shop with id = " + req.params.id);
 					return dao.Opinion.getFromShop(shop, {
 						page: req.query.page || 0,
 						limit: req.query.size || 10,

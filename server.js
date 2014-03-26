@@ -14,7 +14,6 @@ app.use(express.logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(express.methodOverride())
-app.use(express.bodyParser())
 app.use(cors());
 app.use(app.router)
 app.use(express.static(path.join(__dirname, 'public')))
@@ -52,15 +51,18 @@ db.initPromise
         //app.post('/shops/crawled/:id', shops.send_mail);
         // app.get('/shops/crawled', shops.crawled)
         app.get('/shops/:id', shops.getById)
-        // app.get('/shops', shops.getByToken)
+        app.get('/shops', shops.getPage)
         app.post('/shops', shops.create)
         app.get('/shops/:id/opinions', opinions.getById)
 
         app.post('/clients', clients.create)
         app.get('/clients/:id', clients.getById)
 
-        http.createServer(app).listen(app.get('port'), function () {
-            console.log('Express server listening on port ' + app.get('port'))
+        var port = process.env.OPENSHIFT_NODEJS_PORT || app.get('port');
+        var ip = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+
+        http.createServer(app).listen(port, ip, function () {
+            console.log("Express server listening on " + ip + ":" + port);
         })
 
     }, function (err) {
