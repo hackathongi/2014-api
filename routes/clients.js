@@ -9,6 +9,9 @@
 
 module.exports = function(db) {
 
+    var util = require('../util');
+    var dao = require('../dao')(db);
+
 	return {
 		create : function(req, res) {
             if (!req.body.email) {
@@ -28,7 +31,7 @@ module.exports = function(db) {
                         .done();
                 });
             } else {
-                dao.Client.createWithoutShop(req.body, t)
+                dao.Client.createWithoutShop(req.body)
                     .then(util.stdSeqSuccess.genFuncLeft(res, {}), util.stdErr500.genFuncLeft(res))
                     .done();
             }
