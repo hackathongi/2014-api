@@ -19,7 +19,7 @@ module.exports = function (db) {
             var token= uuid.v4()
             var email= req.body.username
             if (!email) {
-                util.stdErr500("Missing 'email' attribute in body");
+                util.stdErr500(res, "Missing 'email' attribute in body");
                 return;
             }
             var attribs= {email: email, token: token}
