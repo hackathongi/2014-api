@@ -1,9 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="page-header">
+    <h1>Shops</h1>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <ul class="list-group">
+            <%
+            // repeat items
+            items.each(function(item,key,list) {
+            %>
+            <li class="list-group-item"><strong>email: </strong><%= item.get('email') %></li>
+            <%
+            });
+            %>
+        </ul>
+    </div>
+</div>

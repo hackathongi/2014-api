@@ -6,7 +6,7 @@ define([
 ], function(_, Backbone, ShopModel){
     var ShopCollection = Backbone.Collection.extend({
         model: ShopModel,
-        urlRoot: "/shops"
+        url: "/shops"
     });
     // You don't usually return a collection instantiated
     return ShopCollection;

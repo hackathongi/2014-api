@@ -1,28 +1,25 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
-    'views/shops/list'
-], function ($, _, Backbone, ShopListView) {
+    'backbone'
+], function ($, _, Backbone) {
 
     var AppRouter = Backbone.Router.extend({
         routes: {
             // Define some URL routes
-            '/projects': 'showProjects',
-            '/users': 'showUsers',
+            'shops': 'showShops',
+
 
             // Default
             '*actions': 'defaultAction'
         }
     });
 
-    var initialize = function () {
-        var app_router = new AppRouter;
-        app_router.on('showShops', function () {
-            // Call render on the module we loaded in via the dependency array
-            // 'views/projects/list'
-            var shopListView = new ShopListView();
-            shopListView.render();
+    var app_router = new AppRouter();
+
+    var initialize = function (Ui) {
+        app_router.on('route:showShops', function () {
+            Ui.updateShops();
         });
         app_router.on('defaultAction', function (actions) {
             // We have no matching route, lets just log what the URL was
@@ -32,6 +29,9 @@ define([
     };
 
     return {
-        initialize: initialize
+        initialize: initialize,
+        navigate: function(hash) {
+            app_router.navigate(hash, {trigger: true})
+        }
     };
 });
