@@ -38,6 +38,19 @@ module.exports = function (db) {
         return df.promise;
     }
 
+    dao.getPage = function (options) {
+        var df = W.defer();
+        db.Client.findAll({
+            attributes: ['name', 'email'],
+            limit: options.limit,
+            offset: options.offset,
+            order: 'createdAt DESC'})
+            .success(df.resolve)
+            .error(df.reject);
+        return df.promise;
+    };
+
+
 
     return dao;
 }

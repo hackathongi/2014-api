@@ -55,6 +55,7 @@ db.initPromise
         app.post('/shops', shops.create)
         app.get('/shops/:id/opinions', opinions.getById)
 
+        app.get('/clients', clients.getPage)
         app.post('/clients', clients.create)
         app.get('/clients/:id', clients.getById)
 

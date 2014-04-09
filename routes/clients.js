@@ -36,12 +36,22 @@ module.exports = function(db) {
                     .done();
             }
 		},
+
 		getById : function(req,res) {
 			db.Client.find(req.params.id).success(function(client){
 				res.setHeader('Content-Type','text-json');
 				res.end(JSON.stringify(client));
 			});
-		}
-	}
+		},
+
+        getPage: function (req, res) {
+            var page = req.query.page || 0;
+            var limit = req.query.size || 10;
+            var offset = page * limit;
+            dao.Client.getPage({ limit: limit, offset: offset})
+                .then(util.stdSeqSuccess.genFuncLeft(res), util.stdSeqError.genFuncLeft(res))
+                .done();
+        }
+    }
 
 }

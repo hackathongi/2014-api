@@ -8,6 +8,7 @@ define([
         routes: {
             // Define some URL routes
             'shops': 'showShops',
+            'clients': 'showClients',
 
 
             // Default
@@ -21,6 +22,10 @@ define([
         app_router.on('route:showShops', function () {
             Ui.updateShops();
         });
+        app_router.on('route:showClients', function () {
+            Ui.updateClients();
+        });
+
         app_router.on('defaultAction', function (actions) {
             // We have no matching route, lets just log what the URL was
             console.log('No route:', actions);
